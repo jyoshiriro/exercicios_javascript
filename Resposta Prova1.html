@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="pt-br">
+<head>
+	<meta charset="utf-8" />
+</head>
+<body>
+	<div>
+		<label for="txt0">Jogo 1</label>
+		<input type="text" id="txt0" />
+		vs
+		<input type="text" id="txt1" />
+	</div>
+
+	<div>
+		<label for="txt2">Jogo 2</label>
+		<input type="text" id="txt2" />
+		vs
+		<input type="text" id="txt3" />
+	</div>
+
+	<div>
+		<label for="txt4">Jogo 3</label>
+		<input type="text" id="txt4" />
+		vs
+		<input type="text" id="txt5" />
+	</div>
+
+	<div>
+		<label for="txt6">Jogo 4</label>
+		<input type="text" id="txt6" />
+		vs
+		<input type="text" id="txt7" />
+	</div>
+
+	<div>
+		<label for="txt8">Jogo 5</label>
+		<input type="text" id="txt8" />
+		vs
+		<input type="text" id="txt9" />
+	</div>
+
+	<div>
+		<label for="txt10">Jogo 6</label>
+		<input type="text" id="txt10" />
+		vs
+		<input type="text" id="txt11" />
+	</div>
+
+	<div>
+		<label for="txt12">Jogo 7</label>
+		<input type="text" id="txt12" />
+		vs
+		<input type="text" id="txt13" />
+	</div>
+
+	<div>
+		<label for="txt14">Jogo 8</label>
+		<input type="text" id="txt14" />
+		vs
+		<input type="text" id="txt15" />
+	</div>
+
+	<div>
+		<label for="txt16">Jogo 9</label>
+		<input type="text" id="txt16" />
+		vs
+		<input type="text" id="txt17" />
+	</div>
+
+	<div>
+		<label for="txt18">Jogo 10</label>
+		<input type="text" id="txt18" />
+		vs
+		<input type="text" id="txt19" />
+	</div>
+
+	<div>
+		<label for="txt20">Jogo 11</label>
+		<input type="text" id="txt20" />
+		vs
+		<input type="text" id="txt21" />
+	</div>
+
+	<div>
+		<label for="txt22">Jogo 12</label>
+		<input type="text" id="txt22" />
+		vs
+		<input type="text" id="txt23" />
+	</div>
+
+	<div>
+		<label for="txt24">Jogo 13</label>
+		<input type="text" id="txt24" />
+		vs
+		<input type="text" id="txt25" />
+	</div>
+
+	<div>
+		<label for="txt26">Jogo 14</label>
+		<input type="text" id="txt26" />
+		vs
+		<input type="text" id="txt27" />
+	</div>
+
+	<div>
+		<label for="txt28">Jogo 15</label>
+		<input type="text" id="txt28" />
+		vs
+		<input type="text" id="txt29" />
+	</div>
+
+	<div id="divMsg"></div>
+
+	<div>
+		<button type="button" id="btnCalcular">Calcular</button>
+	</div>
+
+	<script type="text/javascript">
+		var i,
+			txt = new Array(30),
+			divMsg = document.getElementById("divMsg");
+
+		for (i = 0; i < 30; i++) {
+			txt[i] = document.getElementById("txt" + i);
+		}
+
+		var btnCalcular = document.getElementById("btnCalcular");
+
+		btnCalcular.onclick = function () {
+			var a, b, campo, entrada, saida,
+				times = ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P"],
+				oitavas = new Array(8),
+				quartas = new Array(4),
+				semi = new Array(2);
+
+			// 8 jogos de oitavas (inputs 0 ao 15)
+			for (campo = 0, entrada = 0, saida = 0; campo < 16; campo += 2, entrada += 2, saida++) {
+				a = parseFloat(txt[campo].value);
+				b = parseFloat(txt[campo + 1].value);
+
+				if (isNaN(a) || isNaN(b) || a < 0 || b < 0) {
+					divMsg.textContent = "Valores inválidos!";
+					return;
+				}
+
+				if (a > b) {
+					oitavas[saida] = times[entrada];
+				} else {
+					oitavas[saida] = times[entrada + 1];
+				}
+			}
+
+			// 4 jogos de quartas (inputs 16 ao 23)
+			for (campo = 16, entrada = 0, saida = 0; campo < 24; campo += 2, entrada += 2, saida++) {
+				a = parseFloat(txt[campo].value);
+				b = parseFloat(txt[campo + 1].value);
+
+				if (isNaN(a) || isNaN(b) || a < 0 || b < 0) {
+					divMsg.textContent = "Valores inválidos!";
+					return;
+				}
+
+				if (a > b) {
+					quartas[saida] = oitavas[entrada];
+				} else {
+					quartas[saida] = oitavas[entrada + 1];
+				}
+			}
+
+			// 2 jogos de semis (inputs 24, 25, 26 e 27)
+			for (campo = 24, entrada = 0, saida = 0; campo < 28; campo += 2, entrada += 2, saida++) {
+				a = parseFloat(txt[campo].value);
+				b = parseFloat(txt[campo + 1].value);
+
+				if (isNaN(a) || isNaN(b) || a < 0 || b < 0) {
+					divMsg.textContent = "Valores inválidos!";
+					return;
+				}
+
+				if (a > b) {
+					semi[saida] = quartas[entrada];
+				} else {
+					semi[saida] = quartas[entrada + 1];
+				}
+			}
+			
+			// final (inputs 28 e 29)
+			a = parseFloat(txt[28].value);
+			b = parseFloat(txt[29].value);
+
+			if (isNaN(a) || isNaN(b) || a < 0 || b < 0) {
+				divMsg.textContent = "Valores inválidos!";
+				return;
+			}
+
+			if (a > b) {
+				divMsg.textContent = "O campeão foi: " + semi[0];
+			} else {
+				divMsg.textContent = "O campeão foi: " + semi[1];
+			}
+		}
+
+		// Dá para fazer isso usando apenas o vetor times[] e 2 for's... Vocês conseguem? ;)
+	</script>
+</body>
+</html>

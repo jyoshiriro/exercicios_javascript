@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="pt-br">
+<head>
+	<meta charset="utf-8" />
+</head>
+<body>
+	<div>
+		<label for="txt2">Posto 2</label>
+		<input type="text" id="txt2" />
+	</div>
+
+	<div>
+		<label for="txt3">Posto 3</label>
+		<input type="text" id="txt3" />
+	</div>
+
+	<div>
+		<label for="txt4">Posto 4</label>
+		<input type="text" id="txt4" />
+	</div>
+
+	<div>
+		<label for="txt5">Posto 5</label>
+		<input type="text" id="txt5" />
+	</div>
+
+	<div id="divMsg"></div>
+
+	<div>
+		<button type="button" id="btnCalcular">Calcular</button>
+	</div>
+
+	<script type="text/javascript">
+		var txt2 = document.getElementById("txt2");
+		var txt3 = document.getElementById("txt3");
+		var txt4 = document.getElementById("txt4");
+		var txt5 = document.getElementById("txt5");
+		var divMsg = document.getElementById("divMsg");
+		var btnCalcular = document.getElementById("btnCalcular");
+
+		btnCalcular.onclick = function () {
+			var p2 = parseFloat(txt2.value);
+			var p3 = parseFloat(txt3.value);
+			var p4 = parseFloat(txt4.value);
+			var p5 = parseFloat(txt5.value);
+
+			if (isNaN(p2) || p2 <= 0) {
+				divMsg.textContent = "Posto 2 inválido!";
+				return;
+			}
+
+			if (isNaN(p3) || p3 <= p2) {
+				divMsg.textContent = "Posto 3 inválido!";
+				return;
+			}
+
+			if (isNaN(p4) || p4 <= p3) {
+				divMsg.textContent = "Posto 4 inválido!";
+				return;
+			}
+
+			if (isNaN(p5) || p5 <= p4) {
+				divMsg.textContent = "Posto 5 inválido!";
+				return;
+			}
+			
+			if (p2 > 10000 || (p3 - p2) > 10000 || (p4 - p3) > 10000 || (p5 - p4) > 10000 || (42195 - p5) > 10000) {
+				divMsg.textContent = "Marquinhos não termina!";
+			} else {
+				divMsg.textContent = "Marquinhos termina OK!";
+			}
+		}
+	</script>
+</body>
+</html>
