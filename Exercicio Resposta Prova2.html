@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="pt-br">
+<head>
+	<meta charset="utf-8" />
+</head>
+<body>
+	<div>
+		<label for="txt2">Posto 2</label>
+		<input type="text" id="txt2" />
+	</div>
+
+	<div>
+		<label for="txt3">Posto 3</label>
+		<input type="text" id="txt3" />
+	</div>
+
+	<div>
+		<label for="txt4">Posto 4</label>
+		<input type="text" id="txt4" />
+	</div>
+
+	<div>
+		<label for="txt5">Posto 5</label>
+		<input type="text" id="txt5" />
+	</div>
+
+	<div id="divMsg"></div>
+
+	<div>
+		<button type="button" id="btnCalcular">Calcular</button>
+	</div>
+
+	<script type="text/javascript">
+		var txt2 = document.getElementById("txt2");
+		var txt3 = document.getElementById("txt3");
+		var txt4 = document.getElementById("txt4");
+		var txt5 = document.getElementById("txt5");
+		var divMsg = document.getElementById("divMsg");
+		var btnCalcular = document.getElementById("btnCalcular");
+
+		function postoInvalido(nome, atual, anterior) {
+			if (isNaN(atual) || atual <= anterior) {
+				divMsg.textContent = "Posto "+nome+" inválido!";
+				return true;
+			}
+			return false;
+		}
+		
+		function postosInvalidos(p2, p3, p4, p5) {
+		    var postos = [0, p2, p3, p4, p5, 42195]
+			
+			for (i=1; i<6; i++) {
+				if (isNaN(postos[i]) || postos[i] <= postos[i-1]) {
+					divMsg.textContent = "Posto "+(i+1)+" inválido!";
+					return true;
+				}
+			}
+			return false;
+		}
+		
+		function distanciaValida(atual, anterior) {
+			return (atual - anterior) <= 10000;
+		}
+		
+		function projetarMeta(p2, p3, p4, p5) {
+			if (distanciaValida(42195, p5) &&
+				distanciaValida(p5, p4) &&
+				distanciaValida(p4, p3) &&
+				distanciaValida(p3, p2) &&
+				distanciaValida(p2, 0)
+			) {
+				divMsg.textContent = "Marquinhos termina OK!";
+			} else {
+				divMsg.textContent = "Marquinhos não termina!";
+			}
+		}
+
+		btnCalcular.onclick = function () {
+			var p2 = parseFloat(txt2.value);
+			var p3 = parseFloat(txt3.value);
+			var p4 = parseFloat(txt4.value);
+			var p5 = parseFloat(txt5.value);
+			
+			/* solução 1
+			if (postoInvalido(2, p2, 0)) {
+				return;
+			}
+
+			if (postoInvalido(3, p3, p2)) {
+				return;
+			}
+
+			if (postoInvalido(4, p4, p3)) {
+				return;
+			}
+
+			if (postoInvalido(5, p5, p4)) {
+				return;
+			}
+			*/
+			
+			// solução 2
+			if (postosInvalidos(p2, p3, p4, p5)) {
+				return;
+			}
+			
+			projetarMeta(p2, p3, p4, p5);
+		}
+	</script>
+</body>
+</html>
